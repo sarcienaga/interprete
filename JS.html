@@ -1,0 +1,71 @@
+<script>
+  <!-- defblockEspera.js> -->
+  Blockly.Blocks['pintacolores'] = {
+    init: function() {
+    this.appendDummyInput()
+        .appendField("Led de color")
+        .appendField(new Blockly.FieldDropdown([["rojo","R"], ["amarillo","A"], ["verde","V"]]), "colores")
+        .appendField(new Blockly.FieldDropdown([["prender","on"], ["apagar","off"]]), "switch");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(330);
+    this.setTooltip("");
+    this.setHelpUrl("");
+    }
+  }; 
+  Blockly.Blocks['wait'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("wait")
+        .appendField(new Blockly.FieldDropdown([["half a second", "500"], ["a second", "1000"], ["two seconds", "2000"], ["five seconds", "5000"]]), "DELAY");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(60);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  }
+};
+
+  <!-- stubgenerador.js> -->
+  Blockly.JavaScript['wait'] = function(block) {
+    var dropdown_delay = block.getFieldValue('DELAY');
+    // TODO: Assemble JavaScript into code variable.
+    var code = 'wait(' + dropdown_delay + ');\n';
+    return code;
+  };
+  
+
+  Blockly.JavaScript['pintacolores'] = function(block) {
+    var dropdown_colores = block.getFieldValue('colores');
+    var dropdown_switch = block.getFieldValue('switch');
+    // TODO: Assemble JavaScript into code variable.
+    // var code = '...;\n';
+    if (dropdown_switch =="on" && dropdown_colores =="R"){
+      var code = `document.getElementById('circleR').style.backgroundColor='red';\n
+                  document.getElementById('circleR1').style.backgroundColor='red';\n`;
+    }
+    if (dropdown_switch =="on" && dropdown_colores =="A"){
+      var code = `document.getElementById('circleA').style.backgroundColor='yellow';
+                  document.getElementById('circleA1').style.backgroundColor='yellow';`;
+    }
+    if (dropdown_switch =="on" && dropdown_colores =="V"){
+      var code = `document.getElementById('circleV').style.backgroundColor='green';
+                  document.getElementById('circleV1').style.backgroundColor='green';`;
+    }
+    if (dropdown_switch =="off" && dropdown_colores =="R"){
+      var code = `document.getElementById('circleR').style.backgroundColor='transparent';\n
+                  document.getElementById('circleR1').style.backgroundColor='transparent';\n`;
+    }
+    if (dropdown_switch =="off" && dropdown_colores =="A"){
+      var code = `document.getElementById('circleA').style.backgroundColor='transparent';
+                  document.getElementById('circleA1').style.backgroundColor='transparent';`;
+    }
+    if (dropdown_switch =="off" && dropdown_colores =="V"){
+      var code = `document.getElementById('circleV').style.backgroundColor='transparent';
+                  document.getElementById('circleV1').style.backgroundColor='transparent';`;
+    }
+    return code;
+  };
+</script>
